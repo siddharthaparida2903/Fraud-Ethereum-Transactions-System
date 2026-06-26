@@ -1,0 +1,62 @@
+# ============================================================================
+# STREAMLIT CONFIGURATION
+# ============================================================================
+# Production-ready settings for Ethereum Fraud Detection System
+# ============================================================================
+
+[theme]
+primaryColor = "#1f77b4"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f0f2f6"
+textColor = "#262730"
+font = "sans serif"
+
+[client]
+showErrorDetails = false
+toolbarMode = "minimal"
+
+[logger]
+level = "info"
+
+[browser]
+gatherUsageStats = false
+serverAddress = "localhost"
+
+[server]
+headless = true
+runOnSave = true
+maxUploadSize = 200
+enableXsrfProtection = true
+enableCORS = false
+port = 8501
+
+[ui]
+hideTopBar = false
+hideSidebarNav = false
+
+[dataFrames]
+fragmentation = "auto"
+
+# ============================================================================
+# PERFORMANCE OPTIMIZATION
+# ============================================================================
+[client]
+# Disable file watcher for production
+toolbarMode = "minimal"
+
+[server]
+# Connection parameters
+maxUploadSize = 200
+enableRunOnSave = true
+
+[logger]
+# Logging level (info, debug, warning, error)
+level = "info"
+messageFormat = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+# ============================================================================
+# DEPLOYMENT NOTES:
+# - Adjust 'port' if running on non-standard port
+# - Set 'gatherUsageStats = false' for privacy compliance
+# - Keep 'enableXsrfProtection = true' for security
+# ============================================================================

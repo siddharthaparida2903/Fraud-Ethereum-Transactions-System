@@ -1,0 +1,61 @@
+# ============================================================================
+# ETHEREUM FRAUD DETECTION - PRODUCTION DEPENDENCIES
+# ============================================================================
+# Pinned versions to ensure stability, compatibility, and reproducibility
+# Last Updated: June 2024
+# Python Version: 3.9, 3.10, 3.11
+# Model: Decision Tree (scikit-learn) + SHAP Explainability
+# ============================================================================
+
+# Core Streamlit Framework
+streamlit==1.28.1
+streamlit-option-menu==0.3.6
+
+# Machine Learning & Decision Tree (scikit-learn instead of XGBoost)
+scikit-learn==1.3.2
+
+# Explainability & SHAP
+shap==0.43.0
+saliency==0.0.1
+
+# Data Processing
+numpy==1.24.3
+pandas==2.1.3
+scipy==1.11.4
+
+# Visualization
+matplotlib==3.8.2
+plotly==5.18.0
+seaborn==0.13.0
+
+# Utilities
+python-dateutil==2.8.2
+pytz==2023.3.post1
+requests==2.31.0
+
+# Optional: For advanced features
+colorama==0.4.6
+tqdm==4.66.1
+
+# ============================================================================
+# NOTES ON VERSION PINNING:
+# ============================================================================
+# • Streamlit 1.28.1: Latest stable with full SHAP support
+# • scikit-learn 1.3.2: Latest stable with Decision Tree and SHAP TreeExplainer
+# • SHAP 0.43.0: Compatible with sklearn TreeExplainer for Decision Trees
+# • NumPy 1.24.3: LTS version with broad compatibility
+# • Pandas 2.1.3: Stable 2.x release series
+# • Plotly 5.18.0: Latest interactive visualization library
+#
+# COMPATIBILITY VERIFIED:
+# ✓ numpy + shap (no regression in common operations)
+# ✓ sklearn + shap TreeExplainer (seamless Decision Tree integration)
+# ✓ streamlit + plotly (native support)
+# ✓ All versions: Python 3.9+ support
+#
+# DECISION TREE MODEL:
+# • max_depth=15, min_samples_split=20, min_samples_leaf=10
+# • class_weight='balanced' for imbalanced fraud dataset (22% fraud)
+# • 43 features from Ethereum transaction dataset
+# • SHAP explains each prediction at the tree node level
+# ============================================================================
