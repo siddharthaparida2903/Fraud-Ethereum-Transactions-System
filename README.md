@@ -1,55 +1,34 @@
-# 📈 Stock Price Prediction Using a Hybrid LSTM-GNN Model
+# 🛡️ Fraud Detection in Ethereum using Explainable AI (XAI)
 
-![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=for-the-badge&logo=python)
-![Deep Learning](https://img.shields.io/badge/Deep%20Learning-LSTM%20%7C%20GAT-orange?style=for-the-badge)
-![NLP](https://img.shields.io/badge/NLP-FinBERT-success?style=for-the-badge)
-![License](https://img.shields.io/badge/License-MIT-lightgrey?style=for-the-badge)
+[![Python Version](https://img.shields.io/badge/Python-3.9+-blue.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org)
+[![XGBoost](https://img.shields.io/badge/Model-XGBoost-success.svg?style=for-the-badge)](https://xgboost.readthedocs.io/)
+[![SHAP](https://img.shields.io/badge/XAI-SHAP-orange.svg?style=for-the-badge)](https://shap.readthedocs.io/)
+[![Streamlit](https://img.shields.io/badge/Deployment-Streamlit-FF4B4B.svg?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-> **A robust, multi-horizon financial forecasting architecture integrating time-series sequential patterns with inter-stock relational dynamics.**
-
----
-
-## 📖 About The Project
-
-Traditional stock prediction models often treat assets in isolation, ignoring the intricate web of influence between companies, sectors, and macroeconomic indicators. 
-
-This project introduces a **Hybrid Deep Learning Architecture** that bridges this gap by combining **Long Short-Term Memory (LSTM)** networks with **Graph Attention Networks (GAT)**. By dynamically mapping stock correlations into a directed graph and fusing it with temporal price histories, this model captures both market contagion effects and individual asset trends. 
-
-### ✨ Key Innovations
-* **Dynamic Rolling Graphs:** Constructs leak-free relational graphs dynamically using rolling Pearson correlation windows, mimicking evolving market conditions.
-* **Cross-Entity Multi-Head Attention:** Fuses temporal (LSTM) and relational (GAT) embeddings to capture complex relationships beyond fixed graph edges.
-* **Probabilistic Forecasting:** Utilizes Quantile Regression Loss to generate statistically calibrated 80% prediction intervals, offering tangible uncertainty quantification for risk management.
-* **Multi-Horizon Joint Training:** A shared encoder architecture feeding independent Gated Residual Network (GRN) heads to simultaneously predict +1, +3, and +5 days into the future.
-* **Sentiment Integration:** Leverages pre-trained **FinBERT** to extract unstructured financial news sentiment and fuse it with numerical OHLCV data.
+An end-to-end Machine Learning pipeline and interactive web application designed to identify fraudulent Ethereum addresses. By leveraging advanced tree-based ensemble methods alongside Explainable AI (XAI) frameworks, this system moves beyond "black-box" predictions to deliver fully transparent, auditable fraud risk assessments in real-time.
 
 ---
 
-## 🚀 Key Results & Performance
+## 🚀 Key Features
 
-Evaluated on 10 major US equities (AAPL, MSFT, GOOGL, AMZN, NVDA, META, TSLA, JPM, V, JNJ) from 2020 to 2026 using strict expanding-window walk-forward validation:
-
-- **📉 RMSE Reduction:** Achieved a **12% reduction** in Root Mean Squared Error over standalone LSTM baselines.
-- **🎯 Directional Accuracy:** Reached **62.4%** accuracy in forecasting next-day (+1) price direction.
-- **🛡️ Risk Calibration:** Achieved **79.6% empirical coverage** for the 80% quantile prediction intervals, proving near-ideal uncertainty calibration.
-
----
-
-## 🛠️ Tech Stack
-
-* **Language:** Python
-* **Deep Learning Framework:** PyTorch, PyTorch Geometric (PyG)
-* **Time-Series Processing:** Pandas, NumPy
-* **Data Acquisition:** `yfinance` API
-* **NLP / Sentiment Analysis:** HuggingFace Transformers (FinBERT)
+- **High-Performance Detection:** Utilizes an optimized **XGBoost Classifier** configured with cost-sensitive learning (`scale_pos_weight`) to manage the severe class imbalance typical of blockchain fraud data.
+- **Explainable AI Integration:** Employs **SHAP (SHapley Additive exPlanations)** to break down individual predictions, showing exactly which features (e.g., token anomalies, transaction speed) drove the risk score.
+- **Interactive Dashboard:** Built with **Streamlit** to feature custom user input profiles (e.g., Legitimate User vs. Phishing Wallet) and real-time prediction gauges.
+- **Automated Insight Summaries:** Translates complex mathematical SHAP values into simple, plain-English summaries for fraud analysts and blockchain investigators.
 
 ---
 
-## ⚙️ Installation & Setup
+## 🧠 System Architecture
 
-### Prerequisites
-Ensure you have Python 3.8+ installed. A machine with a CUDA-enabled GPU is highly recommended for faster training.
-
-### 1. Clone the repository
-```bash
-git clone [https://github.com/your-username/hybrid-lstm-gnn-stock-prediction.git](https://github.com/your-username/hybrid-lstm-gnn-stock-prediction.git)
-cd hybrid-lstm-gnn-stock-prediction
+```text
+┌──────────────────────┐     ┌────────────────────────┐     ┌───────────────────────┐
+│ Ethereum Account Data│ ──> │  XGBoost ML Pipeline   │ ──> │ SHAP Explainability   │
+│ (Volumes, Freq, ERC20)│     │  (Imbalance Optimized) │     │ (Force/Waterfall Plots)│
+└──────────────────────┘     └────────────────────────┘     └───────────────────────┘
+                                                                        │
+                                                                        ▼
+                                                            ┌───────────────────────┐
+                                                            │  Interactive Dashboard│
+                                                            │   (Streamlit Live Web)│
+                                                            └───────────────────────┘
