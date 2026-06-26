@@ -24,7 +24,7 @@ An end-to-end Machine Learning pipeline and interactive web application designed
 ```text
 ┌──────────────────────┐     ┌────────────────────────┐     ┌───────────────────────┐
 │ Ethereum Account Data│ ──> │  XGBoost ML Pipeline   │ ──> │ SHAP Explainability   │
-│ (Volumes, Freq, ERC20)│     │  (Imbalance Optimized) │     │ (Force/Waterfall Plots)│
+│ (Volumes, Freq, ERC20)│    │  (Imbalance Optimized) │     │ (Force/Waterfall Plots)│
 └──────────────────────┘     └────────────────────────┘     └───────────────────────┘
                                                                         │
                                                                         ▼
