@@ -213,17 +213,28 @@ class EthereumFraudDetector:
         # Calculate SHAP values for explainability
         shap_values = self.explainer.shap_values(features_reshaped)
         
-        # For Decision Tree, shap_values is a single array for binary classification
-        # Extract SHAP values for the fraud class (typically the positive class)
+        # Handle both legacy (list) and modern (ndarray) SHAP API:
+        # - shap <0.46:  returns list [class0_array, class1_array], each (n, features)
+        # - shap >=0.46: returns single ndarray of shape (n, features, n_classes)
         if isinstance(shap_values, list):
-            shap_values = shap_values[1]  # Use fraud class SHAP values
+            fraud_shap = shap_values[1][0]   # legacy: class-1, first sample
+        elif shap_values.ndim == 3:
+            fraud_shap = shap_values[0, :, 1]  # modern: sample 0, all features, class 1
+        else:
+            fraud_shap = shap_values[0]          # already (features,)
         
-        return fraud_probability, shap_values[0], features_reshaped[0]
+        return fraud_probability, fraud_shap, features_reshaped[0]
     
     @staticmethod
     def get_base_value(explainer) -> float:
-        """Get the base (expected) value from Decision Tree SHAP explainer."""
-        return explainer.expected_value
+        """Get the base (expected) value from Decision Tree SHAP explainer.
+        Handles both scalar (legacy shap) and array (modern shap) expected_value.
+        """
+        ev = explainer.expected_value
+        # Modern shap (>=0.46) returns array [base_class0, base_class1]
+        if hasattr(ev, '__len__'):
+            return float(ev[1])   # use fraud-class base value
+        return float(ev)
 
 
 # ============================================================================
@@ -562,7 +573,7 @@ def main():
         
         # Create SHAP waterfall visualization
         try:
-            # Create explanation object for waterfall
+            # shap_vals is already a 1-D array of shape (n_features,) from predict()
             explainer_data = shap.Explanation(
                 values=shap_vals,
                 base_values=base_value,
